@@ -30,8 +30,8 @@ public class ClientConnectivityApplication {
 	public String home() throws JSONException {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("message", "Hello from Client-Connectivity");
-		jsonObject.put("message-2",restTemplate.exchange("http://localhost:5002", HttpMethod.GET,
-				null, String.class).getBody());
+//		jsonObject.put("message-2",restTemplate.exchange("http://localhost:5002", HttpMethod.GET,
+//				null, String.class).getBody());
 		return jsonObject.toString();
 	}
 
