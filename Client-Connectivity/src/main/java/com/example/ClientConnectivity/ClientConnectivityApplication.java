@@ -27,7 +27,7 @@ public class ClientConnectivityApplication {
 	private RestTemplate restTemplate;
 
 	@RequestMapping("/")
-	public String Hello() throws JSONException {
+	public String home() throws JSONException {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("message", "Hello from Client-Connectivity");
 		jsonObject.put("message-2",restTemplate.exchange("http://localhost:5002", HttpMethod.GET,
