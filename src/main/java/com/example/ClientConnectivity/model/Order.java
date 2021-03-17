@@ -3,32 +3,43 @@ package com.example.ClientConnectivity.model;
 import com.example.ClientConnectivity.enums.Side;
 import com.example.ClientConnectivity.enums.Status;
 
+import javax.persistence.*;
 import java.util.Date;
 
-public class OrderModel {
-    private int orderId;
-    private Product product;
-    private int quantity;
+@Entity
+@Table(name = "orders")
+public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderId;
+
+    @Column(nullable = false)
+    private Integer quantity;
+
+    @Column(nullable = false)
     private Side side;
+
+    @Column(nullable = false)
     private Status status;
-    private Client client;
+
+    @Column(nullable = false)
     private Date timestamp;
 
-    public OrderModel(int orderId, Product product, int quantity, Side side, Status status, Client client, Date timestamp) {
-        this.orderId = orderId;
-        this.product = product;
-        this.quantity = quantity;
-        this.side = side;
-        this.status = status;
-        this.client = client;
-        this.timestamp = timestamp;
-    }
+    @OneToOne
+    @JoinColumn(name = "productId")
+    private Product product;
 
-    public int getOrderId() {
+    @ManyToOne
+    @JoinColumn(name = "clientId")
+    private Client client;
+
+
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
@@ -40,11 +51,11 @@ public class OrderModel {
         this.product = product;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -84,11 +95,11 @@ public class OrderModel {
     public String toString() {
         return "OrderModel{" +
                 "orderId=" + orderId +
-                ", product=" + product +
+                ", product=" + product.toString() +
                 ", quantity=" + quantity +
                 ", side=" + side +
                 ", status=" + status +
-                ", client=" + client +
+                ", client=" + client.toString() +
                 ", timestamp=" + timestamp +
                 '}';
     }
