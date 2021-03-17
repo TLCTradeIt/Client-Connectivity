@@ -48,6 +48,7 @@ public class OrderController {
 
         order.setProduct(orderDetails.getProduct());
         order.setQuantity(orderDetails.getQuantity());
+        order.setPrice(orderDetails.getPrice());
         order.setSide(orderDetails.getSide());
         order.setStatus(orderDetails.getStatus());
 
@@ -67,5 +68,6 @@ public class OrderController {
         return response;
     }
 
+    
 
 }

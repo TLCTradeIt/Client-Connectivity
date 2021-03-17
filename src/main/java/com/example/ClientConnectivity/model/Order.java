@@ -18,6 +18,9 @@ public class Order {
     private Integer quantity;
 
     @Column(nullable = false)
+    private Double price;
+
+    @Column(nullable = false)
     private Side side;
 
     @Column(nullable = false)
@@ -59,6 +62,14 @@ public class Order {
         this.quantity = quantity;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     public Side getSide() {
         return side;
     }
@@ -95,11 +106,11 @@ public class Order {
     public String toString() {
         return "OrderModel{" +
                 "orderId=" + orderId +
-                ", product=" + product.toString() +
+                ", product=" + product +
                 ", quantity=" + quantity +
                 ", side=" + side +
                 ", status=" + status +
-                ", client=" + client.toString() +
+                ", client=" + client +
                 ", timestamp=" + timestamp +
                 '}';
     }
