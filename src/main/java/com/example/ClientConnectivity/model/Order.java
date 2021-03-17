@@ -106,11 +106,11 @@ public class Order {
     public String toString() {
         return "OrderModel{" +
                 "orderId=" + orderId +
-                ", product=" + product.toString() +
+                ", product=" + product +
                 ", quantity=" + quantity +
                 ", side=" + side +
                 ", status=" + status +
-                ", client=" + client.toString() +
+                ", client=" + client +
                 ", timestamp=" + timestamp +
                 '}';
     }

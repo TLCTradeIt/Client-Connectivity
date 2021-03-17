@@ -66,4 +66,15 @@ public class Portfolio {
     public void setRegisteredProducts(List<Product> registeredProducts) {
         this.registeredProducts = registeredProducts;
     }
+
+    @Override
+    public String toString() {
+        return "Portfolio{" +
+                "portfolioId=" + portfolioId +
+                ", value=" + value +
+                ", dateCreated=" + dateCreated +
+                ", client=" + client +
+                ", registeredProducts=" + registeredProducts +
+                '}';
+    }
 }
