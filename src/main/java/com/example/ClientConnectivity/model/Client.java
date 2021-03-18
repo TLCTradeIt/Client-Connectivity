@@ -27,7 +27,7 @@ public class Client {
     private int phoneNumber;
 
     @Column(nullable= false, length= 30)
-    private int accBalance;
+    private Double accBalance;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Portfolio> portfolio;
@@ -83,11 +83,11 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getAccBalance() {
+    public Double getAccBalance() {
         return accBalance;
     }
 
-    public void setAccBalance(int accBalance) {
+    public void setAccBalance(Double accBalance) {
         this.accBalance = accBalance;
     }
 
