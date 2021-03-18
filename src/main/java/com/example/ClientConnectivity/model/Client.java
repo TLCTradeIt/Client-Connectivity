@@ -10,7 +10,6 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clientId;
 
-    // not unique
     @Column(nullable= false, length= 20)
     private String firstName;
 
