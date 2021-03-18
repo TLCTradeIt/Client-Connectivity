@@ -1,8 +1,8 @@
 package com.example.ClientConnectivity.controller;
 
 import com.example.ClientConnectivity.exception.ResourceNotFoundException;
-import com.example.ClientConnectivity.model.Order;
-import com.example.ClientConnectivity.repository.OrderRepository;
+import com.example.ClientConnectivity.model.Product;
+import com.example.ClientConnectivity.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +23,7 @@ public class ProductController {
     // create a product
     @PostMapping("/create-product")
     public Product createProduct(@RequestBody Product product){
-        return this.productRepository.save(client);
+        return this.productRepository.save(product);
     }
 
     // get all products

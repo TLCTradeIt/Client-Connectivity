@@ -1,16 +1,20 @@
 package com.example.ClientConnectivity.model;
 
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @Table(name = "clients")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long clientId;
 
-    @Column(nullable= false, unique=true, length= 20)
+    // not unique
+    @Column(nullable= false, length= 20)
     private String firstName;
 
-    @Column(nullable= false, unique=true, length= 20)
+    @Column(nullable= false, length= 20)
     private String lastName;
 
     @Column(nullable= false, unique=true, length= 45)
@@ -31,12 +35,12 @@ public class Client {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    public Long getId() {
-        return id;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 
     public String getFirstName() {
@@ -90,7 +94,7 @@ public class Client {
     @java.lang.Override
     public java.lang.String toString() {
         return "Client{" +
-                "id=" + id +
+                "clientId=" + clientId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

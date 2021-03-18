@@ -1,11 +1,13 @@
 package com.example.ClientConnectivity.model;
 
+import javax.persistence.*;
+
 @Entity
 @Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long productId;
 
     @Column(nullable= false, unique=true, length= 20)
     private String ticker;
@@ -21,12 +23,12 @@ public class Product {
     @JoinColumn(name = "portfolioId")
     private Portfolio portfolio;
 
-    public Long getId() {
-        return id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getTicker() {
@@ -48,7 +50,7 @@ public class Product {
     @java.lang.Override
     public java.lang.String toString() {
         return "Product{" +
-                "id=" + id +
+                "productId=" + productId +
                 ", ticker='" + ticker + '\'' +
                 ", exchange='" + exchange + '\'' +
                 '}';

@@ -1,9 +1,9 @@
-package com.example.ProductConnectivity.repository;
+package com.example.ClientConnectivity.repository;
 
-import com.example.ClientConnectivity.model.Order;
+import com.example.ClientConnectivity.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Order, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 }

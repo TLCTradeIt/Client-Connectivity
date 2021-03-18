@@ -1,8 +1,8 @@
 package com.example.ClientConnectivity.controller;
 
 import com.example.ClientConnectivity.exception.ResourceNotFoundException;
-import com.example.ClientConnectivity.model.Order;
-import com.example.ClientConnectivity.repository.OrderRepository;
+import com.example.ClientConnectivity.model.Client;
+import com.example.ClientConnectivity.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -42,7 +42,7 @@ public class ClientController {
 
     // update an client
     @PutMapping("/clients/{id}")
-    public ResponseEntity<Order> updateClient(@PathVariable(value = "id") Long clientId, @Validated @RequestBody Client clientDetails) throws ResourceNotFoundException{
+    public ResponseEntity<Client> updateClient(@PathVariable(value = "id") Long clientId, @Validated @RequestBody Client clientDetails) throws ResourceNotFoundException{
         Client client = clientRepository.findById(clientId)
                 .orElseThrow(() -> new ResourceNotFoundException("Client does not exist"));
 
@@ -51,7 +51,7 @@ public class ClientController {
         client.setEmail(clientDetails.getEmail());
         client.setPassword(clientDetails.getPassword());
         client.setPhoneNumber(clientDetails.getPhoneNumber());
-        client.setAcc_balance(clientDetails.getAcc_balance());
+        client.setAccBalance(clientDetails.getAccBalance());
 
         return ResponseEntity.ok(this.clientRepository.save(client));
     }
