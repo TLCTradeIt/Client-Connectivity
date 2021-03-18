@@ -13,6 +13,14 @@ public class Product {
     @Column(nullable= false, unique=true, length= 20)
     private String exchange;
 
+    @OneToOne
+    @JoinColumn(name = "orderId")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "portfolioId")
+    private Portfolio portfolio;
+
     public Long getId() {
         return id;
     }

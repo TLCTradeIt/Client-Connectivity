@@ -23,9 +23,12 @@ public class Client {
     private int phoneNumber;
 
     @Column(nullable= false, length= 30)
-    private int acc_balance;
+    private int accBalance;
 
-    @OneToMany(mappedBy = "clients", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<Portfolio> portfolio;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Order> orders;
 
     public Long getId() {
@@ -76,12 +79,12 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getAcc_balance() {
-        return acc_balance;
+    public int getAccBalance() {
+        return accBalance;
     }
 
-    public void setAcc_balance(int acc_balance) {
-        this.acc_balance = acc_balance;
+    public void setAccBalance(int accBalance) {
+        this.accBalance = accBalance;
     }
 
     @java.lang.Override
@@ -93,7 +96,7 @@ public class Client {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber=" + phoneNumber +
-                ", acc_balance=" + acc_balance +
+                ", accBalance=" + accBalance +
                 '}';
     }
 }
