@@ -20,10 +20,10 @@ public class Order {
     @Column(nullable = false)
     private Double price;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "VARCHAR", length= 10)
     private Side side;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "VARCHAR", length= 20)
     private Status status;
 
     @Column(nullable = false)
