@@ -108,6 +108,7 @@ public class Order {
                 "orderId=" + orderId +
                 ", product=" + product +
                 ", quantity=" + quantity +
+                ", price=" + price +
                 ", side=" + side +
                 ", status=" + status +
                 ", client=" + client +
