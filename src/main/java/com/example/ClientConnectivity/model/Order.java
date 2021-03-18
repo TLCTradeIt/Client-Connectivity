@@ -2,6 +2,7 @@ package com.example.ClientConnectivity.model;
 
 import com.example.ClientConnectivity.enums.Side;
 import com.example.ClientConnectivity.enums.Status;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class Order {
     private Status status;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private Date timestamp;
 
     @OneToOne
@@ -96,10 +98,6 @@ public class Order {
 
     public Date getTimestamp() {
         return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
     }
 
     @Override

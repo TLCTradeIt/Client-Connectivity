@@ -1,5 +1,7 @@
 package com.example.ClientConnectivity.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +19,7 @@ public class Portfolio {
     private Double value;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private Date dateCreated;
 
     @ManyToOne
@@ -45,10 +48,6 @@ public class Portfolio {
 
     public Date getDateCreated() {
         return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
     }
 
     public Client getClient() {
