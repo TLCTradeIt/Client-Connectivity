@@ -1,5 +1,6 @@
 package com.example.ClientConnectivity.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -12,8 +13,11 @@ import java.util.List;
 public class Portfolio {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long portfolioId;
+
+    @Column(nullable = false)
+    private String name;
 
     @Column(nullable = false)
     private Double value;
@@ -22,12 +26,14 @@ public class Portfolio {
     @CreationTimestamp
     private Date dateCreated;
 
-    @ManyToOne
-    @JoinColumn(name = "clientId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clientId", nullable = false)
+    @JsonIgnore
     private Client client;
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     private List<Product> registeredProducts;
+
 
     // getters and setters
     public Long getPortfolioId() {
@@ -36,6 +42,14 @@ public class Portfolio {
 
     public void setPortfolioId(Long portfolioId) {
         this.portfolioId = portfolioId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Double getValue() {
@@ -70,6 +84,7 @@ public class Portfolio {
     public String toString() {
         return "Portfolio{" +
                 "portfolioId=" + portfolioId +
+                "name=" + name +
                 ", value=" + value +
                 ", dateCreated=" + dateCreated +
                 ", client=" + client +

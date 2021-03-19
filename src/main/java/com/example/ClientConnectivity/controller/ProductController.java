@@ -1,14 +1,15 @@
 package com.example.ClientConnectivity.controller;
 
 import com.example.ClientConnectivity.exception.ResourceNotFoundException;
+import com.example.ClientConnectivity.model.Portfolio;
 import com.example.ClientConnectivity.model.Product;
+import com.example.ClientConnectivity.repository.PortfolioRepository;
 import com.example.ClientConnectivity.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.Path;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,9 @@ public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private PortfolioRepository portfolioRepository;
 
     // create a product
     @PostMapping("/create-product")
@@ -42,12 +46,20 @@ public class ProductController {
 
     // update an product
     @PutMapping("/products/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable(value = "id") Long productId, @Validated @RequestBody Product productDetails) throws ResourceNotFoundException{
+    public ResponseEntity<Product> updateProduct(@PathVariable(value = "id") Long productId, @RequestParam(name = "ticker") String ticker,
+                                                 @RequestParam(name = "exchange") String exchange,
+                                                 @RequestParam(name = "portfolioId") Long portfolioId) throws ResourceNotFoundException{
+
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product does not exist"));
 
-        product.setTicker(productDetails.getTicker());
-        product.setExchange(productDetails.getExchange());
+        Portfolio portfolio = portfolioRepository.findById(portfolioId)
+                .orElseThrow(() -> new ResourceNotFoundException("Portfolio does not exist"));
+
+        product.setTicker(ticker);
+        product.setExchange(exchange);
+        product.setPortfolio(portfolio);
+
 
         return ResponseEntity.ok(this.productRepository.save(product));
     }
@@ -64,7 +76,5 @@ public class ProductController {
 
         return response;
     }
-
-    
 
 }

@@ -1,7 +1,9 @@
 package com.example.ClientConnectivity.controller;
 
 import com.example.ClientConnectivity.exception.ResourceNotFoundException;
+import com.example.ClientConnectivity.model.Client;
 import com.example.ClientConnectivity.model.Portfolio;
+import com.example.ClientConnectivity.repository.ClientRepository;
 import com.example.ClientConnectivity.repository.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +21,21 @@ public class PortfolioController {
     @Autowired
     private PortfolioRepository portfolioRepository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     // create a portfolio
     @PostMapping("/create-portfolio")
-    public Portfolio createPortfolio(@RequestBody Portfolio portfolio) {
+    public Portfolio createPortfolio(@RequestParam(name = "clientId") Long clientId, @RequestParam(name = "name") String name, @RequestParam(name = "value") Double value) throws ResourceNotFoundException{
+
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(() -> new ResourceNotFoundException("The client being referenced does not exist"));
+
+        Portfolio portfolio = new Portfolio();
+        portfolio.setName(name);
+        portfolio.setValue(value);
+        portfolio.setClient(client);
+
         return this.portfolioRepository.save(portfolio);
     }
 
