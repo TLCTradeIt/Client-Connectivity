@@ -7,7 +7,7 @@ import java.util.List;
 @Table(name = "clients")
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long clientId;
 
     @Column(nullable= false, length= 20)
@@ -29,10 +29,11 @@ public class Client {
     private Double accBalance;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    private List<Portfolio> portfolio;
+    private List<Portfolio> portfolios;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Order> orders;
+
 
     public Long getClientId() {
         return clientId;

@@ -4,11 +4,10 @@ import com.example.ClientConnectivity.exception.ResourceNotFoundException;
 import com.example.ClientConnectivity.model.Client;
 import com.example.ClientConnectivity.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

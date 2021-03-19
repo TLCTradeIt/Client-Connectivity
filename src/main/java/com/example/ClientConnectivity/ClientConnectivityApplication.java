@@ -1,5 +1,6 @@
 package com.example.ClientConnectivity;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,16 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableEurekaClient
 @RestController
-public class ClientConnectivityApplication {
+public class ClientConnectivityApplication{
 
-	@Bean
-	public RestTemplate getRestTemplate(){
-		return new RestTemplate();
-	}
+//	@Bean
+//	public RestTemplate getRestTemplate(){
+//		return new RestTemplate();
+//	}
+//
+//	@Autowired
+//	private RestTemplate restTemplate;
 
-	@Autowired
-	private RestTemplate restTemplate;
 
 	@RequestMapping("/")
 	public String home() throws JSONException {
@@ -38,6 +40,5 @@ public class ClientConnectivityApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ClientConnectivityApplication.class, args);
 	}
-
 
 }

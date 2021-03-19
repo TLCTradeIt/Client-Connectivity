@@ -2,6 +2,7 @@ package com.example.ClientConnectivity.model;
 
 import com.example.ClientConnectivity.enums.Side;
 import com.example.ClientConnectivity.enums.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.util.Date;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long orderId;
 
     @Column(nullable = false)
@@ -22,21 +23,22 @@ public class Order {
     private Double price;
 
     @Column(nullable = false, columnDefinition = "VARCHAR", length= 10)
-    private Side side;
+    private String side;
 
     @Column(nullable = false, columnDefinition = "VARCHAR", length= 20)
-    private Status status;
+    private String status;
 
     @Column(nullable = false)
     @CreationTimestamp
     private Date timestamp;
 
     @OneToOne
-    @JoinColumn(name = "productId")
+    @JoinColumn(name = "productId", nullable = false)
     private Product product;
 
-    @ManyToOne
-    @JoinColumn(name = "clientId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clientId", nullable = false)
+    @JsonIgnore
     private Client client;
 
 
@@ -72,19 +74,19 @@ public class Order {
         this.price = price;
     }
 
-    public Side getSide() {
+    public String getSide() {
         return side;
     }
 
-    public void setSide(Side side) {
+    public void setSide(String side) {
         this.side = side;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
