@@ -1,8 +1,8 @@
-package com.example.ClientConnectivity.controller;
+package com.example.clientconnectivity.controller;
 
-import com.example.ClientConnectivity.exception.ResourceNotFoundException;
-import com.example.ClientConnectivity.model.Client;
-import com.example.ClientConnectivity.repository.ClientRepository;
+import com.example.clientconnectivity.exception.ResourceNotFoundException;
+import com.example.clientconnectivity.model.Client;
+import com.example.clientconnectivity.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.validation.annotation.Validated;

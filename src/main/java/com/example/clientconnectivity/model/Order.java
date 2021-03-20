@@ -1,7 +1,5 @@
-package com.example.ClientConnectivity.model;
+package com.example.clientconnectivity.model;
 
-import com.example.ClientConnectivity.enums.Side;
-import com.example.ClientConnectivity.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 

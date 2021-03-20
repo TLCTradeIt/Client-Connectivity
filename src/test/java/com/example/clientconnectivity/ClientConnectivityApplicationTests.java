@@ -1,4 +1,4 @@
-package com.example.ClientConnectivity;
+package com.example.clientconnectivity;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

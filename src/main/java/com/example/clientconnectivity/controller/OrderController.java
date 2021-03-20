@@ -1,12 +1,12 @@
-package com.example.ClientConnectivity.controller;
+package com.example.clientconnectivity.controller;
 
-import com.example.ClientConnectivity.exception.ResourceNotFoundException;
-import com.example.ClientConnectivity.model.Client;
-import com.example.ClientConnectivity.model.Order;
-import com.example.ClientConnectivity.model.Product;
-import com.example.ClientConnectivity.repository.ClientRepository;
-import com.example.ClientConnectivity.repository.OrderRepository;
-import com.example.ClientConnectivity.repository.ProductRepository;
+import com.example.clientconnectivity.exception.ResourceNotFoundException;
+import com.example.clientconnectivity.model.Client;
+import com.example.clientconnectivity.model.Order;
+import com.example.clientconnectivity.model.Product;
+import com.example.clientconnectivity.repository.ClientRepository;
+import com.example.clientconnectivity.repository.OrderRepository;
+import com.example.clientconnectivity.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

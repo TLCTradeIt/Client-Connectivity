@@ -1,4 +1,4 @@
-package com.example.ClientConnectivity.model;
+package com.example.clientconnectivity.model;
 
 import javax.persistence.*;
 import java.util.List;
