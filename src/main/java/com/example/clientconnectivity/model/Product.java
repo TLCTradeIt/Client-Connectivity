@@ -17,6 +17,9 @@ public class Product {
     @Column(nullable= false, length= 20)
     private String exchange;
 
+    @Column(nullable = false)
+    private Integer prodQuantity;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolioId")
     @JsonIgnore
@@ -47,6 +50,13 @@ public class Product {
         this.exchange = exchange;
     }
 
+    public Integer getProdQuantity() {
+        return prodQuantity;
+    }
+
+    public void setProdQuantity(Integer prodQuantity) {
+        this.prodQuantity = prodQuantity;
+    }
 
     public Portfolio getPortfolio() {
         return portfolio;
@@ -62,6 +72,7 @@ public class Product {
                 "productId=" + productId +
                 ", ticker='" + ticker + '\'' +
                 ", exchange='" + exchange + '\'' +
+                ", prodQuantity=" + prodQuantity +
                 ", portfolio=" + portfolio +
                 '}';
     }

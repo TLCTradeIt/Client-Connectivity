@@ -16,7 +16,7 @@ public class Portfolio {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long portfolioId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length= 20)
     private String name;
 
     @Column(nullable = false)
@@ -33,6 +33,9 @@ public class Portfolio {
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     private List<Product> registeredProducts;
+
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
+    private List<Order> orders;
 
 
     // getters and setters
@@ -80,15 +83,24 @@ public class Portfolio {
         this.registeredProducts = registeredProducts;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "Portfolio{" +
                 "portfolioId=" + portfolioId +
-                "name=" + name +
+                ", name='" + name + '\'' +
                 ", value=" + value +
                 ", dateCreated=" + dateCreated +
                 ", client=" + client +
                 ", registeredProducts=" + registeredProducts +
+                ", orders=" + orders +
                 '}';
     }
 }

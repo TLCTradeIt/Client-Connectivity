@@ -48,6 +48,7 @@ public class ProductController {
     @PutMapping("/products/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable(value = "id") Long productId, @RequestParam(name = "ticker") String ticker,
                                                  @RequestParam(name = "exchange") String exchange,
+                                                 @RequestParam(name = "prodQuantity") Integer prodQuantity,
                                                  @RequestParam(name = "portfolioId") Long portfolioId) throws ResourceNotFoundException{
 
         Product product = productRepository.findById(productId)
@@ -58,6 +59,7 @@ public class ProductController {
 
         product.setTicker(ticker);
         product.setExchange(exchange);
+        product.setProdQuantity(prodQuantity);
         product.setPortfolio(portfolio);
 
 

@@ -39,6 +39,11 @@ public class Order {
     @JsonIgnore
     private Client client;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "portfolioId", nullable = false)
+    @JsonIgnore
+    private Portfolio portfolio;
+
 
     public Long getOrderId() {
         return orderId;
@@ -100,17 +105,26 @@ public class Order {
         return timestamp;
     }
 
+    public Portfolio getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
+    }
+
     @Override
     public String toString() {
-        return "OrderModel{" +
+        return "Order{" +
                 "orderId=" + orderId +
-                ", product=" + product +
                 ", quantity=" + quantity +
                 ", price=" + price +
-                ", side=" + side +
-                ", status=" + status +
-                ", client=" + client +
+                ", side='" + side + '\'' +
+                ", status='" + status + '\'' +
                 ", timestamp=" + timestamp +
+                ", product=" + product +
+                ", client=" + client +
+                ", portfolio=" + portfolio +
                 '}';
     }
 }

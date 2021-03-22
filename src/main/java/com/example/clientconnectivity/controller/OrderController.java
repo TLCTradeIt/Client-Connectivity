@@ -3,9 +3,11 @@ package com.example.clientconnectivity.controller;
 import com.example.clientconnectivity.exception.ResourceNotFoundException;
 import com.example.clientconnectivity.model.Client;
 import com.example.clientconnectivity.model.Order;
+import com.example.clientconnectivity.model.Portfolio;
 import com.example.clientconnectivity.model.Product;
 import com.example.clientconnectivity.repository.ClientRepository;
 import com.example.clientconnectivity.repository.OrderRepository;
+import com.example.clientconnectivity.repository.PortfolioRepository;
 import com.example.clientconnectivity.repository.ProductRepository;
 import com.example.clientconnectivity.wsdl.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,19 +33,26 @@ public class OrderController {
     private ClientRepository clientRepository;
 
     @Autowired
+    private PortfolioRepository portfolioRepository;
+
+    @Autowired
     WebServiceTemplate webServiceTemplate;
 
     // create an order
     @PostMapping("/create-order")
     public Order createOrder(@RequestParam(name = "productId") Long productId, @RequestParam(name = "clientId") Long clientId,
                              @RequestParam(name = "quantity") Integer quantity, @RequestParam(name = "price") Double price,
-                             @RequestParam(name = "side") String side, @RequestParam(name = "status") String status) throws ResourceNotFoundException{
+                             @RequestParam(name = "side") String side, @RequestParam(name = "status") String status,
+                             @RequestParam(name = "portfolioId") Long portfolioId) throws ResourceNotFoundException{
 
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("The product being referenced does not exist"));
 
         Client client = clientRepository.findById(clientId)
                 .orElseThrow(() -> new ResourceNotFoundException("The client being referenced does not exist"));
+
+        Portfolio portfolio = portfolioRepository.findById(portfolioId)
+                .orElseThrow(() -> new ResourceNotFoundException("The portfolio being referenced does not exist"));
 
         Order order = new Order();
         order.setProduct(product);
@@ -52,21 +61,34 @@ public class OrderController {
         order.setPrice(price);
         order.setSide(side);
         order.setStatus(status);
+        order.setPortfolio(portfolio);
 
         Order createdOrder = this.orderRepository.save(order);
 
-        // creating soap product
-        SoapProduct soapProduct = new SoapProduct();
-        soapProduct.setProductId(product.getProductId());
-        soapProduct.setTicker(product.getTicker());
-        soapProduct.setExchange(product.getExchange());
 
         // creating soap client
         SoapClient soapClient = new SoapClient();
         soapClient.setClientId(client.getClientId());
         soapClient.setAccBalance(client.getAccBalance());
 
-        // creating soap order with soap client and product
+        // creating soap portfolios
+        // for order
+        SoapPortfolio soapPortfolio = new SoapPortfolio();
+        soapPortfolio.setPortfolioId(portfolio.getPortfolioId());
+
+        //for product
+        SoapPortfolio productSoapPortfolio = new SoapPortfolio();
+        productSoapPortfolio.setPortfolioId(product.getPortfolio().getPortfolioId());
+
+        // creating soap product
+        SoapProduct soapProduct = new SoapProduct();
+        soapProduct.setProductId(product.getProductId());
+        soapProduct.setTicker(product.getTicker());
+        soapProduct.setExchange(product.getExchange());
+        soapProduct.setProdQuantity(product.getProdQuantity());
+        soapProduct.setPortfolio(productSoapPortfolio);
+
+        // creating soap order with soap client, product and portfolio
         SoapOrder soapOrder = new SoapOrder();
         soapOrder.setOrderId(createdOrder.getOrderId());
         soapOrder.setProduct(soapProduct);
@@ -75,6 +97,7 @@ public class OrderController {
         soapOrder.setPrice(price);
         soapOrder.setSide(side);
         soapOrder.setStatus(status);
+        soapOrder.setPortfolio(soapPortfolio);
 //        soapOrder.setTimestamp(createdOrder.getTimestamp());
 
         // sending order to ovs
