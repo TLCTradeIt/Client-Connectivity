@@ -1,14 +1,23 @@
 package com.example.ClientConnectivity.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "clients")
+@Table(name = "clients",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email")
+        })
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long clientId;
+
+    @Column(nullable= false, length= 20)
+    private String username;
 
     @Column(nullable= false, length= 20)
     private String firstName;
@@ -34,6 +43,20 @@ public class Client {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Order> orders;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "clients_roles",
+            joinColumns = @JoinColumn(name = "clientId"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> role = new HashSet<>();
+
+    public Client() {
+    }
+
+    public Client(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
     public Long getClientId() {
         return clientId;
@@ -41,6 +64,14 @@ public class Client {
 
     public void setClientId(Long clientId) {
         this.clientId = clientId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -89,6 +120,14 @@ public class Client {
 
     public void setAccBalance(Double accBalance) {
         this.accBalance = accBalance;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @java.lang.Override
