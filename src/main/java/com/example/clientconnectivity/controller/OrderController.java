@@ -7,9 +7,12 @@ import com.example.clientconnectivity.model.Product;
 import com.example.clientconnectivity.repository.ClientRepository;
 import com.example.clientconnectivity.repository.OrderRepository;
 import com.example.clientconnectivity.repository.ProductRepository;
+import com.example.clientconnectivity.wsdl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ws.client.core.WebServiceTemplate;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +29,9 @@ public class OrderController {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    WebServiceTemplate webServiceTemplate;
 
     // create an order
     @PostMapping("/create-order")
@@ -47,7 +53,44 @@ public class OrderController {
         order.setSide(side);
         order.setStatus(status);
 
-        return this.orderRepository.save(order);
+        Order createdOrder = this.orderRepository.save(order);
+
+        // creating soap product
+        SoapProduct soapProduct = new SoapProduct();
+        soapProduct.setProductId(product.getProductId());
+        soapProduct.setTicker(product.getTicker());
+        soapProduct.setExchange(product.getExchange());
+
+        // creating soap client
+        SoapClient soapClient = new SoapClient();
+        soapClient.setClientId(client.getClientId());
+        soapClient.setAccBalance(client.getAccBalance());
+
+        // creating soap order with soap client and product
+        SoapOrder soapOrder = new SoapOrder();
+        soapOrder.setOrderId(createdOrder.getOrderId());
+        soapOrder.setProduct(soapProduct);
+        soapOrder.setClient(soapClient);
+        soapOrder.setQuantity(quantity);
+        soapOrder.setPrice(price);
+        soapOrder.setSide(side);
+        soapOrder.setStatus(status);
+//        soapOrder.setTimestamp(createdOrder.getTimestamp());
+
+        // sending order to ovs
+        SendOrderRequest request = new SendOrderRequest();
+        request.setOrder(soapOrder);
+
+        SendOrderResponse response = (SendOrderResponse) webServiceTemplate
+                .marshalSendAndReceive("http://localhost:5009/ws/orders", request);
+
+        System.out.println("************************** Soap Response ******************************************");
+        System.out.println("Order Id: " + response.getOrderId());
+        System.out.println("Order validated: " + response.isIsValidated());
+        System.out.println("Order status: " + response.getStatus());
+        System.out.println("Message: " + response.getMessage());
+
+        return createdOrder;
     }
 
     // get all orders

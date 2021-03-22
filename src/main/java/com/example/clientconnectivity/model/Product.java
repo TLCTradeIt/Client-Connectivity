@@ -11,10 +11,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
 
-    @Column(nullable= false, unique=true, length= 20)
+    @Column(nullable= false, length= 20)
     private String ticker;
 
-    @Column(nullable= false, unique=true, length= 20)
+    @Column(nullable= false, length= 20)
     private String exchange;
 
     @ManyToOne(fetch = FetchType.LAZY)
