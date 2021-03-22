@@ -47,7 +47,7 @@ public class Client {
     @JoinTable(	name = "clients_roles",
             joinColumns = @JoinColumn(name = "clientId"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> role = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     public Client() {
     }
