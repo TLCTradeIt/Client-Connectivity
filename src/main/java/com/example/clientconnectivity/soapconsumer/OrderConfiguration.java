@@ -26,7 +26,8 @@ public class OrderConfiguration {
     @Bean
     public OrderClient orderClient(Jaxb2Marshaller marshaller) {
         OrderClient client = new OrderClient();
-        client.setDefaultUri("http://localhost:5009/ws");
+//        client.setDefaultUri("http://localhost:5009/ws");
+        client.setDefaultUri("https://order-validation.herokuapp.com/ws");
         client.setMarshaller(marshaller);
         client.setUnmarshaller(marshaller);
         return client;

@@ -104,8 +104,10 @@ public class OrderController {
         SendOrderRequest request = new SendOrderRequest();
         request.setOrder(soapOrder);
 
+//        SendOrderResponse response = (SendOrderResponse) webServiceTemplate
+//                .marshalSendAndReceive("http://localhost:5009/ws/orders", request);
         SendOrderResponse response = (SendOrderResponse) webServiceTemplate
-                .marshalSendAndReceive("http://localhost:5009/ws/orders", request);
+                .marshalSendAndReceive("https://order-validation.herokuapp.com/ws/orders", request);
 
         System.out.println("************************** Soap Response ******************************************");
         System.out.println("Order Id: " + response.getOrderId());
