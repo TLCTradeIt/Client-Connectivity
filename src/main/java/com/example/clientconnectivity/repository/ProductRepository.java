@@ -1,6 +1,6 @@
-package com.example.ClientConnectivity.repository;
+package com.example.clientconnectivity.repository;
 
-import com.example.ClientConnectivity.model.Product;
+import com.example.clientconnectivity.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.example.ClientConnectivity.model;
+package com.example.clientconnectivity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -11,11 +11,14 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
 
-    @Column(nullable= false, unique=true, length= 20)
+    @Column(nullable= false, length= 20)
     private String ticker;
 
-    @Column(nullable= false, unique=true, length= 20)
+    @Column(nullable= false, length= 20)
     private String exchange;
+
+    @Column(nullable = false)
+    private Integer prodQuantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolioId")
@@ -47,6 +50,13 @@ public class Product {
         this.exchange = exchange;
     }
 
+    public Integer getProdQuantity() {
+        return prodQuantity;
+    }
+
+    public void setProdQuantity(Integer prodQuantity) {
+        this.prodQuantity = prodQuantity;
+    }
 
     public Portfolio getPortfolio() {
         return portfolio;
@@ -62,6 +72,7 @@ public class Product {
                 "productId=" + productId +
                 ", ticker='" + ticker + '\'' +
                 ", exchange='" + exchange + '\'' +
+                ", prodQuantity=" + prodQuantity +
                 ", portfolio=" + portfolio +
                 '}';
     }

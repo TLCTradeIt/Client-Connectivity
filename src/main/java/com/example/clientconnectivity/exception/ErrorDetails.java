@@ -1,4 +1,4 @@
-package com.example.ClientConnectivity.exception;
+package com.example.clientconnectivity.exception;
 
 import java.util.Date;
 

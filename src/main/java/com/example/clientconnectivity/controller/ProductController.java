@@ -1,10 +1,10 @@
-package com.example.ClientConnectivity.controller;
+package com.example.clientconnectivity.controller;
 
-import com.example.ClientConnectivity.exception.ResourceNotFoundException;
-import com.example.ClientConnectivity.model.Portfolio;
-import com.example.ClientConnectivity.model.Product;
-import com.example.ClientConnectivity.repository.PortfolioRepository;
-import com.example.ClientConnectivity.repository.ProductRepository;
+import com.example.clientconnectivity.exception.ResourceNotFoundException;
+import com.example.clientconnectivity.model.Portfolio;
+import com.example.clientconnectivity.model.Product;
+import com.example.clientconnectivity.repository.PortfolioRepository;
+import com.example.clientconnectivity.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +48,7 @@ public class ProductController {
     @PutMapping("/products/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable(value = "id") Long productId, @RequestParam(name = "ticker") String ticker,
                                                  @RequestParam(name = "exchange") String exchange,
+                                                 @RequestParam(name = "prodQuantity") Integer prodQuantity,
                                                  @RequestParam(name = "portfolioId") Long portfolioId) throws ResourceNotFoundException{
 
         Product product = productRepository.findById(productId)
@@ -58,6 +59,7 @@ public class ProductController {
 
         product.setTicker(ticker);
         product.setExchange(exchange);
+        product.setProdQuantity(prodQuantity);
         product.setPortfolio(portfolio);
 
 

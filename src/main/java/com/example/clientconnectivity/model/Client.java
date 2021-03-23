@@ -1,4 +1,4 @@
-package com.example.ClientConnectivity.model;
+package com.example.clientconnectivity.model;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,10 +22,10 @@ public class Client {
     @Column(nullable= false, length= 64)
     private String password;
 
-    @Column(nullable= false, length= 12)
-    private int phoneNumber;
+    @Column(nullable= false, length= 20)
+    private String phoneNumber;
 
-    @Column(nullable= false, length= 30)
+    @Column(nullable= false)
     private Double accBalance;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
@@ -75,11 +75,11 @@ public class Client {
         this.password = password;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
