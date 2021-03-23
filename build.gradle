@@ -23,7 +23,8 @@ configurations {
 task genJaxb {
 	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
 	ext.classesDir = "${buildDir}/classes/jaxb"
-	ext.schema = "http://localhost:5009/ws/orders.wsdl"
+//	ext.schema = "http://localhost:5009/ws/orders.wsdl"
+	ext.schema = "https://order-validation.herokuapp.com/ws/orders.wsdl"
 
 	outputs.dir classesDir
 
