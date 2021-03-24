@@ -66,8 +66,8 @@ public class ClientController {
         response.put("deleted", Boolean.TRUE);
 
         return response;
+
     }
 
-    
 
 }

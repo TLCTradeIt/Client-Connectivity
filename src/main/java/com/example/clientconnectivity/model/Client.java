@@ -91,6 +91,22 @@ public class Client {
         this.accBalance = accBalance;
     }
 
+    public List<Portfolio> getPortfolios() {
+        return portfolios;
+    }
+
+    public void setPortfolios(List<Portfolio> portfolios) {
+        this.portfolios = portfolios;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @java.lang.Override
     public java.lang.String toString() {
         return "Client{" +
