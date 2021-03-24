@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,4 +78,14 @@ public class PortfolioController {
 
         return response;
     }
+
+    // get all portfolios for a particular client
+//    @GetMapping("/portfolios/client/{id}")
+//    public List<Portfolio> getClientPortfolios(@PathVariable(value = "id") Long clientId) throws ResourceNotFoundException{
+//
+//        List<Portfolio> clientPortfolios = portfolioRepository.findAllById(Collections.singleton(clientId))
+//                .orElseThrow(() -> new ResourceNotFoundException("Portfolio does not exist"));
+//
+//        return client.getPortfolios();
+//    }
 }

@@ -11,8 +11,11 @@ import com.example.clientconnectivity.repository.PortfolioRepository;
 import com.example.clientconnectivity.repository.ProductRepository;
 import com.example.clientconnectivity.wsdl.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
 import java.util.HashMap;
@@ -22,6 +25,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/cc")
 public class OrderController {
+
+    @Bean
+	public RestTemplate getRestTemplate(){
+		return new RestTemplate();
+	}
+
+	@Autowired
+	private RestTemplate restTemplate;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -78,7 +89,10 @@ public class OrderController {
 
         //for product
         SoapPortfolio productSoapPortfolio = new SoapPortfolio();
-        productSoapPortfolio.setPortfolioId(product.getPortfolio().getPortfolioId());
+        if(product.getPortfolio() != null){
+            productSoapPortfolio.setPortfolioId(product.getPortfolio().getPortfolioId());
+        }
+
 
         // creating soap product
         SoapProduct soapProduct = new SoapProduct();
@@ -114,6 +128,22 @@ public class OrderController {
         System.out.println("Order validated: " + response.isIsValidated());
         System.out.println("Order status: " + response.getStatus());
         System.out.println("Message: " + response.getMessage());
+
+        // updating order information in the db
+        System.out.println("************************** Order Update ******************************************");
+
+//        String url = "http://localhost:5001/api/v1/cc/orders/" + response.getOrderId();
+        String url = "https://client-connectivity-trade.herokuapp.com/api/v1/cc/orders/" + response.getOrderId();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
+                // Add query parameter
+                .queryParam("quantity", order.getQuantity())
+                .queryParam("price", order.getPrice())
+                .queryParam("side", order.getSide())
+                .queryParam("status", response.getStatus());
+
+        restTemplate.put(builder.toUriString(), null);
+        System.out.println("Update completed");
 
         return createdOrder;
     }

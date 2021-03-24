@@ -76,6 +76,8 @@ dependencies {
 	compile(files(genJaxb.classesDir).builtBy(genJaxb))
 
 	jaxb "com.sun.xml.bind:jaxb-xjc:2.1.7"
+
+	compile 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
 dependencyManagement {
