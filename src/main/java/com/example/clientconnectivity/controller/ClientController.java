@@ -2,6 +2,8 @@ package com.example.clientconnectivity.controller;
 
 import com.example.clientconnectivity.exception.ResourceNotFoundException;
 import com.example.clientconnectivity.model.Client;
+import com.example.clientconnectivity.model.Order;
+import com.example.clientconnectivity.model.Portfolio;
 import com.example.clientconnectivity.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -21,9 +23,17 @@ public class ClientController {
 
     // create a client
     @PostMapping("/create-client")
-    public Client createClient(@RequestBody Client client){
-        return this.clientRepository.save(client);
+    public String createClient(@RequestBody Client client){
+        try {
+            Client checkClient = clientRepository.findByEmail(client.getEmail());
+        } catch (Exception e){
+            this.clientRepository.save(client);
+            return "Client created";
+
+        }
+        return "Client already exists";
     }
+
 
     // get all clients
     @GetMapping("/clients")
@@ -67,6 +77,26 @@ public class ClientController {
 
         return response;
 
+    }
+
+    // get client orders
+    @GetMapping("/clients/{id}/orders")
+    public List<Order> getClientOrders(@PathVariable(value = "id") Long clientId) throws ResourceNotFoundException{
+
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(() -> new ResourceNotFoundException("Client does not exist"));
+
+        return client.getOrders();
+    }
+
+    // get client portfolios
+    @GetMapping("/clients/{id}/portfolios")
+    public List<Portfolio> getClientPortfolios(@PathVariable(value = "id") Long clientId) throws ResourceNotFoundException{
+
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(() -> new ResourceNotFoundException("Client does not exist"));
+
+        return client.getPortfolios();
     }
 
 
