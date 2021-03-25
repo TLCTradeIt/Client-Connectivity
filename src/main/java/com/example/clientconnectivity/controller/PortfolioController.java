@@ -2,7 +2,9 @@ package com.example.clientconnectivity.controller;
 
 import com.example.clientconnectivity.exception.ResourceNotFoundException;
 import com.example.clientconnectivity.model.Client;
+import com.example.clientconnectivity.model.Order;
 import com.example.clientconnectivity.model.Portfolio;
+import com.example.clientconnectivity.model.Product;
 import com.example.clientconnectivity.repository.ClientRepository;
 import com.example.clientconnectivity.repository.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,13 +81,23 @@ public class PortfolioController {
         return response;
     }
 
-    // get all portfolios for a particular client
-//    @GetMapping("/portfolios/client/{id}")
-//    public List<Portfolio> getClientPortfolios(@PathVariable(value = "id") Long clientId) throws ResourceNotFoundException{
-//
-//        List<Portfolio> clientPortfolios = portfolioRepository.findAllById(Collections.singleton(clientId))
-//                .orElseThrow(() -> new ResourceNotFoundException("Portfolio does not exist"));
-//
-//        return client.getPortfolios();
-//    }
+    // get portfolio products
+    @GetMapping("/portfolios/{id}/products")
+    public List<Product> getPortfolioProducts(@PathVariable(value = "id") Long portfolioId) throws ResourceNotFoundException{
+
+        Portfolio portfolio = portfolioRepository.findById(portfolioId)
+                .orElseThrow(() -> new ResourceNotFoundException("Portfolio does not exist"));
+
+        return portfolio.getRegisteredProducts();
+    }
+
+    // get portfolio orders
+    @GetMapping("/portfolios/{id}/orders")
+    public List<Order> getPortfolioOrders(@PathVariable(value = "id") Long portfolioId) throws ResourceNotFoundException{
+
+        Portfolio portfolio = portfolioRepository.findById(portfolioId)
+                .orElseThrow(() -> new ResourceNotFoundException("Portfolio does not exist"));
+
+        return portfolio.getOrders();
+    }
 }
