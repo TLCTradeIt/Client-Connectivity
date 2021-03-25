@@ -23,15 +23,8 @@ public class ClientController {
 
     // create a client
     @PostMapping("/create-client")
-    public String createClient(@RequestBody Client client){
-        try {
-            Client checkClient = clientRepository.findByEmail(client.getEmail());
-        } catch (Exception e){
-            this.clientRepository.save(client);
-            return "Client created";
-
-        }
-        return "Client already exists";
+    public Client createClient(@RequestBody Client client){
+        return this.clientRepository.save(client);
     }
 
 
