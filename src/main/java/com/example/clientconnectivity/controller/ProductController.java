@@ -54,14 +54,18 @@ public class ProductController {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product does not exist"));
 
-        Portfolio portfolio = portfolioRepository.findById(portfolioId)
-                .orElseThrow(() -> new ResourceNotFoundException("Portfolio does not exist"));
+        if(portfolioId != -1){
+            Portfolio portfolio = portfolioRepository.findById(portfolioId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Portfolio does not exist"));
+
+            product.setPortfolio(portfolio);
+        } else{
+            product.setPortfolio(null);
+        }
 
         product.setTicker(ticker);
         product.setExchange(exchange);
         product.setProdQuantity(prodQuantity);
-        product.setPortfolio(portfolio);
-
 
         return ResponseEntity.ok(this.productRepository.save(product));
     }

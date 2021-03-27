@@ -14,7 +14,7 @@ public class Product {
     @Column(nullable= false, length= 20)
     private String ticker;
 
-    @Column(nullable= false, length= 20)
+    @Column(length= 20)
     private String exchange;
 
     @Column(nullable = false)
