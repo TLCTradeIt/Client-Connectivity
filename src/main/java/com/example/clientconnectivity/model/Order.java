@@ -44,6 +44,18 @@ public class Order {
     @JsonIgnore
     private Portfolio portfolio;
 
+    public Order() {
+    }
+
+    public Order(Integer quantity, Double price, String side, String status, Product product, Client client, Portfolio portfolio) {
+        this.quantity = quantity;
+        this.price = price;
+        this.side = side;
+        this.status = status;
+        this.product = product;
+        this.client = client;
+        this.portfolio = portfolio;
+    }
 
     public Long getOrderId() {
         return orderId;

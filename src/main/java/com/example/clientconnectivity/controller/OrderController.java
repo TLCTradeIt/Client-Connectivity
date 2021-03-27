@@ -66,14 +66,7 @@ public class OrderController {
         Portfolio portfolio = portfolioRepository.findById(portfolioId)
                 .orElseThrow(() -> new ResourceNotFoundException("The portfolio being referenced does not exist"));
 
-        Order order = new Order();
-        order.setProduct(product);
-        order.setClient(client);
-        order.setQuantity(quantity);
-        order.setPrice(price);
-        order.setSide(side);
-        order.setStatus(status);
-        order.setPortfolio(portfolio);
+        Order order = new Order(quantity, price, side, status, product, client, portfolio);
 
         Order createdOrder = this.orderRepository.save(order);
 
@@ -193,6 +186,5 @@ public class OrderController {
 
         return response;
     }
-
 
 }
