@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
     @Column(nullable= false, length= 20)
