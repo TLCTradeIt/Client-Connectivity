@@ -54,6 +54,7 @@ public class ClientController {
         client.setPassword(clientDetails.getPassword());
         client.setPhoneNumber(clientDetails.getPhoneNumber());
         client.setAccBalance(clientDetails.getAccBalance());
+        client.setRole(clientDetails.getRole());
 
         return ResponseEntity.ok(this.clientRepository.save(client));
     }

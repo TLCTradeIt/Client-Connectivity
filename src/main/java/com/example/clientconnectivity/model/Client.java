@@ -7,7 +7,7 @@ import java.util.List;
 @Table(name = "clients")
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clientId;
 
     @Column(nullable= false, length= 20)
@@ -26,7 +26,10 @@ public class Client {
     private String phoneNumber;
 
     @Column(nullable= false)
-    private Double accBalance;
+    private Double accBalance = 0.0;
+
+    @Column(nullable = false, length = 15)
+    private String role;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Portfolio> portfolios;
@@ -91,6 +94,14 @@ public class Client {
         this.accBalance = accBalance;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public List<Portfolio> getPortfolios() {
         return portfolios;
     }
@@ -107,17 +118,20 @@ public class Client {
         this.orders = orders;
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
+
+    @Override
+    public String toString() {
         return "Client{" +
                 "clientId=" + clientId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", accBalance=" + accBalance +
+                ", role='" + role + '\'' +
+                ", portfolios=" + portfolios +
+                ", orders=" + orders +
                 '}';
     }
-
 }

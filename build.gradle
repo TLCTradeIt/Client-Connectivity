@@ -78,6 +78,10 @@ dependencies {
 	jaxb "com.sun.xml.bind:jaxb-xjc:2.1.7"
 
 	compile 'org.springframework.boot:spring-boot-starter-webflux'
+
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 dependencyManagement {
